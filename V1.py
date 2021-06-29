@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[12]:
-
-
 from PIL import Image
 import requests
 from datetime import datetime
@@ -12,9 +9,6 @@ import telegram
 
 
 # Descarga la imagen a petición y la guarda en el local:
-
-# In[10]:
-
 
 def save_image():
     datatime = datetime.today().strftime('%Y-%m-%d')
@@ -31,9 +25,6 @@ def save_image():
 
 
 # Recorre los chats y envía la foto a cada uno sin repetirse
-
-# In[13]:
-
 
 def send_image():
     bot_token = '1860902556:AAFh53pvK5-cugsRmjRbSOnZsZFZ-xU-4GQ'
@@ -54,9 +45,6 @@ def send_image():
             bot_chatID_list.append(bot_chatID_str)
     else:
         print(f"Request is fail with error {response.status_code}. Please check url https://api.telegram.org/bot{bot_token}/getUpdates")
-
-
-# In[ ]:
 
 
 save_image()
