@@ -9,7 +9,9 @@ import telegram
 
 
 # Descarga la imagen a petición y la guarda en el local:
-POLLAS POLLAS POLLAS
+GENITALES = ['POLLAS']
+
+GENITALES * 3
 
     bot = telegram.Bot(bot_token)
     response = requests.get(f"https://api.telegram.org/bot{bot_token}/getUpdates")
