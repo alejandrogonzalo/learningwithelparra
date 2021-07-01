@@ -36,11 +36,11 @@ def send_image():
         responses_chat = response.json()["result"]
         bot_chatID_list =[]
 
-        for interacion in responses_chat:
-            bot_chatID = interacion["message"]["from"]["id"]
+        for interaction in responses_chat:
+            bot_chatID = interaction["message"]["from"]["id"]
             bot_chatID_str = str(bot_chatID)
     
-            if (bot_chatID_str in bot_chatID_list) == False:
+            if(bot_chatID_str not in bot_chatID_list:
                 bot.sendPhoto(bot_chatID_str,url)
                 bot_chatID_list.append(bot_chatID_str)
     else:
