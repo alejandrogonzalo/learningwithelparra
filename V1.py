@@ -6,25 +6,27 @@ import requests
 from datetime import datetime
 import requests
 import telegram
+import os
 
 URL_IMAGE = "https://www.comunidad.madrid/sites/default/files/styles/imagen_enlace_opcional/public/doc/sanidad/info/niveles_de_reserva_sangre.jpg"
+DATATIME = datetime.today().strftime('%Y-%m-%d')
+PATH_FOLDER = r"C:\Users\alejandro\Desktop\Bot_telegram"
 # Descarga la imagen a petición y la guarda en el local:
 
-def save_image():
-    datatime = datetime.today().strftime('%Y-%m-%d')
-    path = (r"C:\Users\alejandro\Desktop\Bot_telegram\im_" + datatime + ".jpg")
-
-    response = requests.get(URL_IMAGE, stream=True)
+def save_image(path_folder=PATH_FOLDER, url_image=URL_IMAGE):
+    name_image = "im" + DATATIME + ".jpg"
+    path_image = os.path.join(path_folder, name_image)
+    response = requests.get(url_image, stream=True)
     if response.ok and (response.status_code == 200):
         im = Image.open(response.raw)
-        im.save(path)
+        im.save(path_image)
     else:
-        print(f"Request is fail with error {response.status_code}. Please check url {URL_IMAGE}")
+        print(f"Request is fail with error {response.status_code}. Please check url {url_image}")
 
 
 # Recorre los chats y envía la foto a cada uno sin repetirse
 
-def send_image():
+def send_image(url_image=URL_IMAGE):
     bot_token = '1860902556:AAFh53pvK5-cugsRmjRbSOnZsZFZ-xU-4GQ'
     bot_chatID = 'bot_chatID'
     bot = telegram.Bot(bot_token)
@@ -39,7 +41,7 @@ def send_image():
             bot_chatID_str = str(bot_chatID)
     
             if bot_chatID_str not in bot_chatID_list:
-                bot.sendPhoto(bot_chatID_str,URL_IMAGE)
+                bot.sendPhoto(bot_chatID_str,url_image)
                 bot_chatID_list.append(bot_chatID_str)
     else:
         print(f"Request is fail with error {response.status_code}. Please check url https://api.telegram.org/bot{bot_token}/getUpdates")
